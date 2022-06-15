@@ -1,0 +1,47 @@
+name: test_two
+description: A new Flutter project.
+
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.2
+  flutter_modular: ^5.0.3
+  permission_handler: ^9.2.0
+
+  path_provider: ^2.0.11
+  dio: ^4.0.6
+  fpdart: ^0.0.14
+  flutter_bloc: ^8.0.1
+  wallpaper_design:
+    path: '../wallpaper_design'
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^1.0.0
+  mocktail: ^0.3.0
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
+    - assets/icons/2x/
+    - assets/icons/3x/
+
