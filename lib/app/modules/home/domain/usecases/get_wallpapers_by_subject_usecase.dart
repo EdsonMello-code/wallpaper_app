@@ -15,6 +15,8 @@ class GetWallpapersBySubjectUsecase implements IGetWallpapersBySubjectUsecase {
 
   @override
   Future<Either<WallpaperError, List<WallpaperEntity>>> call(String subject) {
-    return _wallpaperRepository.getWallpappersBySubject(subject);
+    return _wallpaperRepository.getWallpappersBySubject(
+      subject.isEmpty ? 'Car' : subject,
+    );
   }
 }

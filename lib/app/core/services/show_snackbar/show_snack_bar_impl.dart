@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wallpaper_design/wallpaper_design.dart';
 
 class ShowSnackBarImpl {
   static void showSnackBarFailure(
@@ -9,7 +8,7 @@ class ShowSnackBarImpl {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.red,
-        content: WallpaperText.snackBarText(message),
+        content: Text(message),
       ),
     );
   }
@@ -21,7 +20,7 @@ class ShowSnackBarImpl {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.green,
-        content: WallpaperText.snackBarText(message),
+        content: Text(message),
       ),
     );
   }

@@ -558,9 +558,11 @@ packages:
   wallpaper_design:
     dependency: "direct main"
     description:
-      path: "../wallpaper_design"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: a6c7bea4f9f30e90ef8a77b91cabac39e909f6d9
+      url: "https://github.com/EdsonMello-code/wallpaper_design.git"
+    source: git
     version: "0.0.1"
   watcher:
     dependency: transitive

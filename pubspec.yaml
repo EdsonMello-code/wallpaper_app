@@ -23,7 +23,7 @@ dependencies:
   fpdart: ^0.0.14
   flutter_bloc: ^8.0.1
   wallpaper_design:
-    path: '../wallpaper_design'
+    git: https://github.com/EdsonMello-code/wallpaper_design.git
 
 
 

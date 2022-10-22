@@ -4,7 +4,8 @@ import 'package:test_two/app/core/services/show_snackbar/show_snack_bar_impl.dar
 import 'package:test_two/app/modules/home/domain/usecases/download_wallpaper_usecase.dart';
 import 'package:test_two/app/modules/home/presenter/bloc/wallpaper_details/wallpaper_details_bloc.dart';
 import 'package:test_two/app/modules/home/presenter/bloc/wallpaper_details/wallpaper_details_state.dart';
-import 'package:wallpaper_design/wallpaper_design.dart';
+import 'package:wallpaper_design/custom_colors.dart';
+import 'package:wallpaper_design/wallpaper_text.dart';
 
 import '../../../../core/services/http_client/http_client_dio_service_impl.dart';
 import '../../../../core/services/local_path/local_path_provider_service_impl.dart';
@@ -104,13 +105,11 @@ class _WallpaperDetailsPageState extends State<WallpaperDetailsPage> {
           )
         ],
       ),
-      body: SizedBox(
-        width: size.width,
-        height: size.height,
-        child: Image.network(
-          widget.url,
-          fit: BoxFit.cover,
-        ),
+      body: Image.network(
+        widget.url,
+        fit: BoxFit.cover,
+        cacheWidth: size.width.toInt(),
+        cacheHeight: size.height.toInt(),
       ),
     );
   }

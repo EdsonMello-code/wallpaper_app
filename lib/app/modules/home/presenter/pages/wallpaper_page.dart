@@ -98,12 +98,15 @@ class _WallpaperPageState extends State<WallpaperPage> {
                         ),
                       );
                     },
-                    child: const Padding(
-                      padding: EdgeInsets.only(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
                         left: 16.0,
                         right: 16.0,
                       ),
-                      child: Icon(Icons.search),
+                      child: Icon(
+                        Icons.search,
+                        color: CustomColors.mainGreyColor,
+                      ),
                     ),
                   ),
                 ),
@@ -157,8 +160,8 @@ class _WallpaperPageState extends State<WallpaperPage> {
                       child: Image.network(
                         wallpapers[index].extraLarge,
                         fit: BoxFit.cover,
-                        height: 100,
-                        width: 100,
+                        cacheHeight: 200,
+                        cacheWidth: 200,
                       ),
                     ),
                   );

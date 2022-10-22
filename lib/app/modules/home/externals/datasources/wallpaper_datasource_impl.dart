@@ -47,30 +47,39 @@ class WallpaperDatasourceImpl implements WallpaperDatasource {
   Future<List<WallpaperEntity>> getWallpapersBySubjectDatasource(
     String subject,
   ) async {
-    final response = await _httpClientService.get(
-      '/search',
-      {
-        'Authorization': 'Bearer ${const String.fromEnvironment('key')}',
-      },
-      {
-        'query': subject,
-        'per_page': 100,
-      },
-    );
+    try {
+      print(const String.fromEnvironment('key') + 'Teste');
 
-    final data = List<Map<String, dynamic>>.from(
-      response.data['photos'],
-    );
+      print({
+        'query': subject.trim(),
+      });
+      final response = await _httpClientService.get(
+        '/search',
+        {
+          'Authorization': 'Bearer ${const String.fromEnvironment('key')}',
+        },
+        {
+          'query': subject.trim(),
+        },
+      );
 
-    final wallpapers = data
-        .map(
-          (wallpaperMap) => WallpaperMapper.fromMap(
-            wallpaperMap,
-          ),
-        )
-        .toList();
+      final data = List<Map<String, dynamic>>.from(
+        response.data['photos'],
+      );
 
-    return wallpapers;
+      final wallpapers = data
+          .map(
+            (wallpaperMap) => WallpaperMapper.fromMap(
+              wallpaperMap,
+            ),
+          )
+          .toList();
+
+      return wallpapers;
+    } catch (e) {
+      print(e);
+      throw UnimplementedError();
+    }
   }
 
   @override
