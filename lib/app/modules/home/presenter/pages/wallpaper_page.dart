@@ -1,17 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:test_two/app/core/services/http_client/http_client_dio_service_impl.dart';
-import 'package:test_two/app/core/services/local_path/local_path_provider_service_impl.dart';
-import 'package:test_two/app/core/services/permission/permission_service_impl.dart';
-import 'package:test_two/app/modules/home/domain/usecases/get_wallpapers_usecase.dart';
-import 'package:test_two/app/modules/home/externals/datasources/wallpaper_datasource_impl.dart';
-import 'package:test_two/app/modules/home/infra/repositories/wallpaper_repository_impl.dart';
 import 'package:test_two/app/modules/home/presenter/bloc/wallpapers/wallpapers_state.dart';
 import 'package:wallpaper_design/wallpaper_design.dart';
 
-import '../../domain/usecases/get_wallpapers_by_subject_usecase.dart';
 import '../bloc/wallpapers/wallpaper_bloc.dart';
 import '../bloc/wallpapers/wallpaper_event.dart';
 
@@ -31,32 +23,7 @@ class _WallpaperPageState extends State<WallpaperPage> {
   void initState() {
     super.initState();
 
-    wallpaperbloc = WallpaperBloc(
-      GetWallpapersUsecase(
-        WallpaperRepositoryImpl(
-          WallpaperDatasourceImpl(
-            HttpClientDioServiceImpl(
-              Dio(),
-              'https://api.pexels.com/v1',
-            ),
-            LocalPathProviderServiceImpl(),
-            PermissionServiceImpl(),
-          ),
-        ),
-      ),
-      GetWallpapersBySubjectUsecase(
-        WallpaperRepositoryImpl(
-          WallpaperDatasourceImpl(
-            HttpClientDioServiceImpl(
-              Dio(),
-              'https://api.pexels.com/v1',
-            ),
-            LocalPathProviderServiceImpl(),
-            PermissionServiceImpl(),
-          ),
-        ),
-      ),
-    );
+    wallpaperbloc = Modular.get();
     wallpaperbloc.add(GetWallpaperEvent());
     _wallpaperTextEditingController = TextEditingController();
   }

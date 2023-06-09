@@ -20,10 +20,9 @@ class WallpaperDatasourceImpl implements WallpaperDatasource {
 
   @override
   Future<List<WallpaperEntity>> getWallpapersDatasource() async {
-    print(const String.fromEnvironment('key') + 'Teste');
     final response = await _httpClientService.get(
       '/curated',
-      {'Authorization': 'Bearer ${const String.fromEnvironment('key')}'},
+      {'Authorization': const String.fromEnvironment('key')},
       {
         'per_page': 100,
       },
@@ -48,7 +47,7 @@ class WallpaperDatasourceImpl implements WallpaperDatasource {
     String subject,
   ) async {
     try {
-      print(const String.fromEnvironment('key') + 'Teste');
+      print('${const String.fromEnvironment('key')}Teste');
 
       print({
         'query': subject.trim(),
@@ -56,7 +55,7 @@ class WallpaperDatasourceImpl implements WallpaperDatasource {
       final response = await _httpClientService.get(
         '/search',
         {
-          'Authorization': 'Bearer ${const String.fromEnvironment('key')}',
+          'Authorization': const String.fromEnvironment('key'),
         },
         {
           'query': subject.trim(),
