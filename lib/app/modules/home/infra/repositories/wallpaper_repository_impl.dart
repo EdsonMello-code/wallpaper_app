@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:test_two/app/core/services/http_client/http_error.dart';
+import 'package:test_two/app/core/app_failure/app_failure.dart';
 import 'package:test_two/app/core/services/permission/permission_service.dart';
 import 'package:test_two/app/modules/home/domain/errors/wallpapers_error.dart';
 import 'package:test_two/app/modules/home/domain/wallpaper_entity.dart';
@@ -21,7 +21,7 @@ class WallpaperRepositoryImpl implements WallpaperRepository {
     try {
       final wallpapers = await _wallpaperDatasource.getWallpapersDatasource();
       return Right(wallpapers);
-    } on HttpError catch (error) {
+    } on AppFailure catch (error) {
       return Left(
         WallpaperInternetError(error.message),
       );
@@ -39,7 +39,7 @@ class WallpaperRepositoryImpl implements WallpaperRepository {
       );
 
       return Right(wallpapers);
-    } on HttpError catch (error) {
+    } on AppFailure catch (error) {
       return Left(
         WallpaperInternetError(error.message),
       );
@@ -64,7 +64,7 @@ class WallpaperRepositoryImpl implements WallpaperRepository {
       );
 
       return Right(isSavedWallpaper);
-    } on HttpError catch (error) {
+    } on AppFailure catch (error) {
       return Left(
         WallpaperInternetError(
           error.message,
