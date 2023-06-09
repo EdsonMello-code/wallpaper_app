@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:test_two/app/core/services/http_client/http_client_service.dart';
 import 'package:test_two/app/core/services/local_path/local_path_service.dart';
 import 'package:test_two/app/modules/home/domain/wallpaper_entity.dart';
@@ -65,7 +67,14 @@ class WallpaperDatasourceImpl implements WallpaperDatasource {
   @override
   Future<bool> downloadWallpaperDatasource(String url) async {
     final path = await _localPath.getDownloadPath();
-    final isImageSaved = _httpClientService.downloadFile(url, path);
-    return isImageSaved;
+
+    final imageInBytes = await _httpClientService.getFileInBytes(url);
+
+    final filePath = '$path${DateTime.now().millisecond}.jpg';
+    final file = File(filePath);
+
+    await file.writeAsBytes(imageInBytes);
+
+    return true;
   }
 }

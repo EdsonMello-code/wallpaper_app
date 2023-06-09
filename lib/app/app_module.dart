@@ -14,9 +14,7 @@ class AppModule extends Module {
   @override
   final List<Bind<Object>> binds = [
     Bind.lazySingleton(
-      (i) => Uno(
-        baseURL: 'https://api.pexels.com/v1',
-      ),
+      (i) => Uno(),
     ),
   ];
 }

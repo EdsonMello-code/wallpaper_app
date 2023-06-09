@@ -1,7 +1,9 @@
 import 'package:test_two/app/core/services/http_client/response.dart';
 
 abstract class HttpClientService {
-  Future<bool> downloadFile(String urlOfFile, String localToSaveInDevice);
+  Future<List<int>> getFileInBytes(
+    String urlOfFile,
+  );
 
   Future<CustomResponse> get(
     String url, [

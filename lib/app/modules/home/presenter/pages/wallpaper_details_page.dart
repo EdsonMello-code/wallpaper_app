@@ -28,16 +28,20 @@ class _WallpaperDetailsPageState extends State<WallpaperDetailsPage> {
 
     widget.wallpaperDetailsbloc.stream.listen((wallpaperDetailsState) {
       if (wallpaperDetailsState is WallpaperDetailsSuccessState) {
-        ShowSnackBarImpl.showSnackBarSuccess(
-          context,
-          message: 'Imagem salva',
-        );
+        if (mounted) {
+          ShowSnackBarImpl.showSnackBarSuccess(
+            context,
+            message: 'Imagem salva',
+          );
+        }
       }
       if (wallpaperDetailsState is WallpaperDetailsFailureState) {
-        ShowSnackBarImpl.showSnackBarFailure(
-          context,
-          message: 'Error ao salvar imagem.',
-        );
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          ShowSnackBarImpl.showSnackBarFailure(
+            context,
+            message: 'Error ao salvar imagem.',
+          );
+        });
       }
     });
   }

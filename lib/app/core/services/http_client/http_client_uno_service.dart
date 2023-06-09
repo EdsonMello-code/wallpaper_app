@@ -11,12 +11,19 @@ class HttpClientUnoServiceImpl implements HttpClientService {
   });
 
   @override
-  Future<bool> downloadFile(
+  Future<List<int>> getFileInBytes(
     String urlOfFile,
-    String localToSaveInDevice,
   ) async {
-    await uno.get(urlOfFile, responseType: ResponseType.arraybuffer);
-    return true;
+    try {
+      final response = await uno.get(
+        urlOfFile,
+        responseType: ResponseType.arraybuffer,
+      );
+
+      return response.data;
+    } on UnoError catch (error) {
+      throw HttpError(error.message);
+    }
   }
 
   @override
@@ -27,7 +34,7 @@ class HttpClientUnoServiceImpl implements HttpClientService {
   ]) async {
     try {
       final response = await uno.get(
-        url,
+        'https://api.pexels.com/v1$url',
         responseType: ResponseType.json,
         params: queryParams ?? {},
         headers: Map<String, String>.from(
