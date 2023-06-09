@@ -1,4 +1,5 @@
 import 'package:test_two/app/core/services/http_client/http_client_service.dart';
+import 'package:test_two/app/core/services/http_client/http_error.dart';
 import 'package:test_two/app/core/services/http_client/response.dart';
 import 'package:uno/uno.dart';
 
@@ -24,15 +25,19 @@ class HttpClientUnoServiceImpl implements HttpClientService {
     Map<String, String>? headers,
     Map<String, String>? queryParams,
   ]) async {
-    final response = await uno.get(
-      url,
-      responseType: ResponseType.json,
-      params: queryParams ?? {},
-      headers: Map<String, String>.from(
-        headers ?? <String, String>{},
-      ),
-    );
+    try {
+      final response = await uno.get(
+        url,
+        responseType: ResponseType.json,
+        params: queryParams ?? {},
+        headers: Map<String, String>.from(
+          headers ?? <String, String>{},
+        ),
+      );
 
-    return CustomResponse(response.data);
+      return CustomResponse(response.data);
+    } on UnoError catch (error) {
+      throw HttpError(error.message);
+    }
   }
 }
