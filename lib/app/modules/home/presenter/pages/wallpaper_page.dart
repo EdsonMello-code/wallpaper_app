@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_two/app/core/services/mixins/navigation_service.dart';
+import 'package:test_two/app/core/mixins/navigation_service.dart';
 import 'package:test_two/app/modules/home/presenter/bloc/wallpapers/wallpapers_state.dart';
 import 'package:wallpaper_design/wallpaper_design.dart';
 
