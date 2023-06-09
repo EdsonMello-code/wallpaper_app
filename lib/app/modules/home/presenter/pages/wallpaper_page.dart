@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:test_two/app/core/services/mixins/navigation_service.dart';
 import 'package:test_two/app/modules/home/presenter/bloc/wallpapers/wallpapers_state.dart';
 import 'package:wallpaper_design/wallpaper_design.dart';
 
@@ -8,23 +8,25 @@ import '../bloc/wallpapers/wallpaper_bloc.dart';
 import '../bloc/wallpapers/wallpaper_event.dart';
 
 class WallpaperPage extends StatefulWidget {
-  const WallpaperPage({Key? key}) : super(key: key);
+  final WallpaperBloc wallpaperbloc;
+
+  const WallpaperPage({
+    Key? key,
+    required this.wallpaperbloc,
+  }) : super(key: key);
 
   @override
   State<WallpaperPage> createState() => _WallpaperPageState();
 }
 
-class _WallpaperPageState extends State<WallpaperPage> {
+class _WallpaperPageState extends State<WallpaperPage> with NavigationMixin {
   late final TextEditingController _wallpaperTextEditingController;
-
-  late final WallpaperBloc wallpaperbloc;
 
   @override
   void initState() {
     super.initState();
 
-    wallpaperbloc = Modular.get();
-    wallpaperbloc.add(GetWallpaperEvent());
+    widget.wallpaperbloc.add(GetWallpaperEvent());
     _wallpaperTextEditingController = TextEditingController();
   }
 
@@ -59,7 +61,7 @@ class _WallpaperPageState extends State<WallpaperPage> {
                   textFieldController: _wallpaperTextEditingController,
                   prefixIcon: GestureDetector(
                     onTap: () {
-                      wallpaperbloc.add(
+                      widget.wallpaperbloc.add(
                         GetWallpaperBySubjectEvent(
                           subject: _wallpaperTextEditingController.text,
                         ),
@@ -82,11 +84,10 @@ class _WallpaperPageState extends State<WallpaperPage> {
           ),
         ),
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<WallpaperBloc, WallpapersState>(
-          bloc: wallpaperbloc,
+          bloc: widget.wallpaperbloc,
           builder: (context, state) {
             if (state is WallpaperLoadingState) {
               return const Center(
@@ -119,7 +120,7 @@ class _WallpaperPageState extends State<WallpaperPage> {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        Modular.to.pushNamed(
+                        pushNamed(
                           '/wallpaper_details/',
                           arguments: wallpapers[index].extraLarge,
                         );
@@ -140,7 +141,6 @@ class _WallpaperPageState extends State<WallpaperPage> {
           },
         ),
       ),
-      // body: ,
     );
   }
 }

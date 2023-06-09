@@ -35,11 +35,11 @@ class HomeModule extends Module {
     Bind.lazySingleton(
       (i) => WallpaperRepositoryImpl(
         i(),
+        i(),
       ),
     ),
     Bind.lazySingleton(
       (i) => WallpaperDatasourceImpl(
-        i(),
         i(),
         i(),
       ),
@@ -67,10 +67,18 @@ class HomeModule extends Module {
 
   @override
   List<ModularRoute> routes = [
-    ChildRoute('/', child: (context, _) => const WallpaperPage()),
+    ChildRoute(
+      '/',
+      child: (context, _) => WallpaperPage(
+        wallpaperbloc: Modular.get(),
+      ),
+    ),
     ChildRoute(
       '/wallpaper_details/',
-      child: (context, args) => WallpaperDetailsPage(url: args.data),
+      child: (context, args) => WallpaperDetailsPage(
+        url: args.data,
+        wallpaperDetailsbloc: Modular.get(),
+      ),
     )
   ];
 }

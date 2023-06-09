@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:test_two/app/core/services/http_client/http_client_uno_service.dart';
 import 'package:test_two/app/core/services/show_snackbar/show_snack_bar_impl.dart';
-import 'package:test_two/app/modules/home/domain/usecases/download_wallpaper_usecase.dart';
 import 'package:test_two/app/modules/home/presenter/bloc/wallpaper_details/wallpaper_details_bloc.dart';
 import 'package:test_two/app/modules/home/presenter/bloc/wallpaper_details/wallpaper_details_state.dart';
 import 'package:wallpaper_design/custom_colors.dart';
 import 'package:wallpaper_design/wallpaper_text.dart';
 
-import '../../../../core/services/local_path/local_path_provider_service_impl.dart';
-import '../../../../core/services/permission/permission_service_impl.dart';
-import '../../externals/datasources/wallpaper_datasource_impl.dart';
-import '../../infra/repositories/wallpaper_repository_impl.dart';
 import '../bloc/wallpaper_details/wallpaper_details_event.dart';
 
 class WallpaperDetailsPage extends StatefulWidget {
   final String url;
+  final WallpaperDetailsBloc wallpaperDetailsbloc;
 
   const WallpaperDetailsPage({
     Key? key,
     required this.url,
+    required this.wallpaperDetailsbloc,
   }) : super(key: key);
 
   @override
@@ -27,29 +22,11 @@ class WallpaperDetailsPage extends StatefulWidget {
 }
 
 class _WallpaperDetailsPageState extends State<WallpaperDetailsPage> {
-  late final WallpaperDetailsBloc wallpaperDetailsbloc;
-
   @override
   void initState() {
     super.initState();
 
-    // wallpaperDetailsbloc = Modular;
-
-    wallpaperDetailsbloc = WallpaperDetailsBloc(
-      DownloadWallpaperUsecase(
-        WallpaperRepositoryImpl(
-          WallpaperDatasourceImpl(
-            HttpClientUnoServiceImpl(
-              uno: Modular.get(),
-            ),
-            LocalPathProviderServiceImpl(),
-            PermissionServiceImpl(),
-          ),
-        ),
-      ),
-    );
-
-    wallpaperDetailsbloc.stream.listen((wallpaperDetailsState) {
+    widget.wallpaperDetailsbloc.stream.listen((wallpaperDetailsState) {
       if (wallpaperDetailsState is WallpaperDetailsSuccessState) {
         ShowSnackBarImpl.showSnackBarSuccess(
           context,
@@ -74,7 +51,7 @@ class _WallpaperDetailsPageState extends State<WallpaperDetailsPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButton(
         onPressed: () {
-          wallpaperDetailsbloc.add(
+          widget.wallpaperDetailsbloc.add(
             SaveWallpaperEvent(
               widget.url,
             ),
