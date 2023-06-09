@@ -6,6 +6,6 @@ abstract class HttpClientService {
   Future<CustomResponse> get(
     String url, [
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParams,
+    Map<String, String>? queryParams,
   ]);
 }

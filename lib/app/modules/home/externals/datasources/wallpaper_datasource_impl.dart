@@ -24,7 +24,7 @@ class WallpaperDatasourceImpl implements WallpaperDatasource {
       '/curated',
       {'Authorization': const String.fromEnvironment('key')},
       {
-        'per_page': 100,
+        'per_page': 100.toString(),
       },
     );
     final data = List<Map<String, dynamic>>.from(
@@ -47,11 +47,6 @@ class WallpaperDatasourceImpl implements WallpaperDatasource {
     String subject,
   ) async {
     try {
-      print('${const String.fromEnvironment('key')}Teste');
-
-      print({
-        'query': subject.trim(),
-      });
       final response = await _httpClientService.get(
         '/search',
         {

@@ -22,11 +22,12 @@ class HttpClientUnoServiceImpl implements HttpClientService {
   Future<CustomResponse> get(
     String url, [
     Map<String, String>? headers,
-    Map<String, dynamic>? queryParams,
+    Map<String, String>? queryParams,
   ]) async {
     final response = await uno.get(
       url,
       responseType: ResponseType.json,
+      params: queryParams ?? {},
       headers: Map<String, String>.from(
         headers ?? <String, String>{},
       ),
