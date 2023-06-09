@@ -89,55 +89,48 @@ class _WallpaperPageState extends State<WallpaperPage> with NavigationMixin {
         child: BlocBuilder<WallpaperBloc, WallpapersState>(
           bloc: widget.wallpaperbloc,
           builder: (context, state) {
-            if (state is WallpaperLoadingState) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            if (state is WallpapperFailureState) {
-              return Center(
-                child: WallpaperText.bodyOne(
-                  state.message,
+            return switch (state) {
+              WallpaperLoadingState _ => const Center(
+                  child: CircularProgressIndicator(),
                 ),
-              );
-            }
-
-            if (state is WallpaperSuccessState) {
-              final wallpapers = state.wallpapers;
-
-              return GridView.builder(
-                itemCount: wallpapers.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 3 / 4,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
+              WallpapperFailureState _ => Center(
+                  child: WallpaperText.bodyOne(
+                    state.message,
+                  ),
                 ),
-                itemBuilder: (context, index) {
-                  return Material(
-                    borderRadius: BorderRadius.circular(16.0),
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {
-                        pushNamed(
-                          '/wallpaper_details/',
-                          arguments: wallpapers[index].extraLarge,
-                        );
-                      },
-                      child: Image.network(
-                        wallpapers[index].extraLarge,
-                        fit: BoxFit.cover,
-                        cacheHeight: 200,
-                        cacheWidth: 200,
+              WallpaperStartState _ => Container(),
+              WallpaperSuccessState state => GridView.builder(
+                  itemCount: state.wallpapers.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 3 / 4,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                  ),
+                  itemBuilder: (context, index) {
+                    final wallpaper = state.wallpapers[index];
+
+                    return Material(
+                      borderRadius: BorderRadius.circular(16.0),
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () {
+                          pushNamed(
+                            '/wallpaper_details/',
+                            arguments: wallpaper.extraLarge,
+                          );
+                        },
+                        child: Image.network(
+                          wallpaper.extraLarge,
+                          fit: BoxFit.cover,
+                          cacheHeight: 200,
+                          cacheWidth: 200,
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            }
-
-            return Container();
+                    );
+                  },
+                )
+            };
           },
         ),
       ),

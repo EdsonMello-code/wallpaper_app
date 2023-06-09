@@ -1,6 +1,6 @@
 import 'package:test_two/app/modules/home/domain/wallpaper_entity.dart';
 
-abstract class WallpapersState {}
+sealed class WallpapersState {}
 
 class WallpaperStartState implements WallpapersState {}
 
@@ -9,7 +9,7 @@ class WallpaperLoadingState implements WallpapersState {}
 class WallpaperSuccessState implements WallpapersState {
   final List<WallpaperEntity> wallpapers;
 
-  const WallpaperSuccessState({
+  WallpaperSuccessState({
     required this.wallpapers,
   });
 }
@@ -17,7 +17,7 @@ class WallpaperSuccessState implements WallpapersState {
 class WallpapperFailureState implements WallpapersState {
   final String message;
 
-  const WallpapperFailureState({
+  WallpapperFailureState({
     required this.message,
   });
 }
