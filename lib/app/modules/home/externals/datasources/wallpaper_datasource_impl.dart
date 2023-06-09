@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:test_two/app/core/services/http_client/http_client_service.dart';
 import 'package:test_two/app/core/services/local_path/local_path_service.dart';
-import 'package:test_two/app/modules/home/domain/wallpaper_entity.dart';
-import 'package:test_two/app/modules/home/externals/mappers/wallpaper_mapper.dart';
 import 'package:test_two/app/modules/home/infra/datasources/wallpaper_datasource.dart';
 
 class WallpaperDatasourceImpl implements WallpaperDatasource {
@@ -18,7 +16,7 @@ class WallpaperDatasourceImpl implements WallpaperDatasource {
   );
 
   @override
-  Future<List<WallpaperEntity>> getWallpapersDatasource() async {
+  Future<List<Map<String, dynamic>>> getWallpapersDatasource() async {
     final response = await _httpClientService.get(
       '/curated',
       {
@@ -32,17 +30,11 @@ class WallpaperDatasourceImpl implements WallpaperDatasource {
       response.data['photos'],
     );
 
-    final wallpapers = data
-        .map(
-          WallpaperMapper.fromMap,
-        )
-        .toList();
-
-    return wallpapers;
+    return data;
   }
 
   @override
-  Future<List<WallpaperEntity>> getWallpapersBySubjectDatasource(
+  Future<List<Map<String, dynamic>>> getWallpapersBySubjectDatasource(
     String subject,
   ) async {
     final response = await _httpClientService.get(
@@ -59,9 +51,7 @@ class WallpaperDatasourceImpl implements WallpaperDatasource {
       response.data['photos'],
     );
 
-    final wallpapers = data.map(WallpaperMapper.fromMap).toList();
-
-    return wallpapers;
+    return data;
   }
 
   @override
@@ -70,7 +60,7 @@ class WallpaperDatasourceImpl implements WallpaperDatasource {
 
     final imageInBytes = await _httpClientService.getFileInBytes(url);
 
-    final filePath = '$path${DateTime.now().millisecond}.jpg';
+    final filePath = '$path${DateTime.now().microsecondsSinceEpoch}.jpg';
     final file = File(filePath);
 
     await file.writeAsBytes(imageInBytes);

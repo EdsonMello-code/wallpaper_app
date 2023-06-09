@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_two/app/core/mixins/navigation_service.dart';
@@ -55,7 +56,7 @@ class _WallpaperPageState extends State<WallpaperPage> with NavigationMixin {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 32.0),
+                padding: const EdgeInsets.only(bottom: 8.0),
                 child: CustomTextFieldComponent(
                   hintText: 'Pesquisar',
                   textFieldController: _wallpaperTextEditingController,
@@ -85,7 +86,7 @@ class _WallpaperPageState extends State<WallpaperPage> with NavigationMixin {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: BlocBuilder<WallpaperBloc, WallpapersState>(
           bloc: widget.wallpaperbloc,
           builder: (context, state) {
@@ -101,6 +102,7 @@ class _WallpaperPageState extends State<WallpaperPage> with NavigationMixin {
               WallpaperStartState _ => Container(),
               WallpaperSuccessState state => GridView.builder(
                   itemCount: state.wallpapers.length,
+                  padding: EdgeInsets.zero,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 3 / 4,
@@ -120,11 +122,11 @@ class _WallpaperPageState extends State<WallpaperPage> with NavigationMixin {
                             arguments: wallpaper.extraLarge,
                           );
                         },
-                        child: Image.network(
-                          wallpaper.extraLarge,
+                        child: CachedNetworkImage(
+                          imageUrl: wallpaper.extraLarge,
                           fit: BoxFit.cover,
-                          cacheHeight: 200,
-                          cacheWidth: 200,
+                          memCacheHeight: 200,
+                          memCacheWidth: 200,
                         ),
                       ),
                     );

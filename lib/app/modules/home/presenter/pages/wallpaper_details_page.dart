@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:test_two/app/core/services/show_snackbar/show_snack_bar_impl.dart';
 import 'package:test_two/app/modules/home/presenter/bloc/wallpaper_details/wallpaper_details_bloc.dart';
@@ -85,11 +86,11 @@ class _WallpaperDetailsPageState extends State<WallpaperDetailsPage> {
           )
         ],
       ),
-      body: Image.network(
-        widget.url,
+      body: CachedNetworkImage(
+        imageUrl: widget.url,
         fit: BoxFit.cover,
-        cacheWidth: size.width.toInt(),
-        cacheHeight: size.height.toInt(),
+        memCacheHeight: size.height.toInt(),
+        memCacheWidth: size.width.toInt(),
       ),
     );
   }
