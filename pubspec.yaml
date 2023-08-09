@@ -22,7 +22,6 @@ dependencies:
 
   path_provider: ^2.0.15
   uno: ^1.1.8
-  fpdart: ^0.6.0
   flutter_bloc: ^8.1.3
   cached_network_image: ^3.2.3
   wallpaper_design:
