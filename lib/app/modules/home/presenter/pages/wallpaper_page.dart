@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_two/app/core/mixins/navigation_service.dart';
 import 'package:test_two/app/modules/home/presenter/bloc/wallpapers/wallpapers_state.dart';
 import 'package:wallpaper_design/wallpaper_design.dart';
 
+import '../../../../core/widgets/image_widget.dart';
 import '../bloc/wallpapers/wallpaper_bloc.dart';
 import '../bloc/wallpapers/wallpaper_event.dart';
 
@@ -122,11 +122,10 @@ class _WallpaperPageState extends State<WallpaperPage> with NavigationMixin {
                             arguments: wallpaper.extraLarge,
                           );
                         },
-                        child: CachedNetworkImage(
+                        child: ImageWidget(
                           imageUrl: wallpaper.extraLarge,
                           fit: BoxFit.cover,
-                          memCacheHeight: 200,
-                          memCacheWidth: 200,
+                          size: const Size(200, 200),
                         ),
                       ),
                     );

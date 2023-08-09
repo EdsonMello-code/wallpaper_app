@@ -4,17 +4,14 @@ import 'package:uno/uno.dart';
 
 class AppModule extends Module {
   @override
-  final List<ModularRoute> routes = [
-    ModuleRoute(
-      '/',
-      module: HomeModule(),
-    ),
-  ];
+  void routes(RouteManager r) {
+    r.module('/', module: HomeModule());
+  }
 
   @override
-  final List<Bind<Object>> binds = [
-    Bind.lazySingleton(
-      (i) => Uno(),
-    ),
-  ];
+  void binds(Injector i) {
+    i.addLazySingleton(
+      () => Uno(),
+    );
+  }
 }

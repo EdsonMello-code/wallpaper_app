@@ -8,7 +8,7 @@ import 'wallpaper_details_state.dart';
 
 class WallpaperDetailsBloc
     extends Bloc<WallpaperDetailsEvent, WallpaperDetailsState> {
-  final DownloadWallpaperUsecase _downloadWallpaperUsecase;
+  final IDownloadWallpaperUsecase _downloadWallpaperUsecase;
 
   WallpaperDetailsBloc(this._downloadWallpaperUsecase)
       : super(

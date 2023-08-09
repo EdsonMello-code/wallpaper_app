@@ -6,8 +6,8 @@ import 'package:test_two/app/modules/home/presenter/bloc/wallpapers/wallpapers_s
 import '../../../domain/usecases/get_wallpapers_by_subject_usecase.dart';
 
 class WallpaperBloc extends Bloc<WallpaperEvent, WallpapersState> {
-  final GetWallpapersUsecase _getWallpapersUsecase;
-  final GetWallpapersBySubjectUsecase _getWallpapersBySujectUsecase;
+  final IGetWallpapersUsecase _getWallpapersUsecase;
+  final IGetWallpapersBySubjectUsecase _getWallpapersBySujectUsecase;
 
   WallpaperBloc(
     this._getWallpapersUsecase,

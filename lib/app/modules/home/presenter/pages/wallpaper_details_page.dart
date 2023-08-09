@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:test_two/app/core/services/show_snackbar/show_snack_bar_impl.dart';
+import 'package:test_two/app/core/widgets/image_widget.dart';
 import 'package:test_two/app/modules/home/presenter/bloc/wallpaper_details/wallpaper_details_bloc.dart';
 import 'package:test_two/app/modules/home/presenter/bloc/wallpaper_details/wallpaper_details_state.dart';
 import 'package:wallpaper_design/custom_colors.dart';
@@ -49,7 +49,7 @@ class _WallpaperDetailsPageState extends State<WallpaperDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery.sizeOf(context);
 
     return Scaffold(
       extendBody: true,
@@ -86,11 +86,13 @@ class _WallpaperDetailsPageState extends State<WallpaperDetailsPage> {
           )
         ],
       ),
-      body: CachedNetworkImage(
+      body: ImageWidget(
         imageUrl: widget.url,
         fit: BoxFit.cover,
-        memCacheHeight: size.height.toInt(),
-        memCacheWidth: size.width.toInt(),
+        size: Size(
+          size.width,
+          size.height,
+        ),
       ),
     );
   }

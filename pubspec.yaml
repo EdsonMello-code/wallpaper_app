@@ -16,7 +16,7 @@ dependencies:
 
 
   cupertino_icons: ^1.0.5
-  flutter_modular: ^5.0.3
+  flutter_modular: ^6.0.2
   permission_handler: ^10.3.0
   hive: ^2.2.3
 
@@ -27,7 +27,6 @@ dependencies:
   cached_network_image: ^3.2.3
   wallpaper_design:
     git: https://github.com/EdsonMello-code/wallpaper_design.git
-
 
 
 dev_dependencies:
