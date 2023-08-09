@@ -4,7 +4,7 @@ import 'package:test_two/app/modules/home/domain/wallpaper_entity.dart';
 import '../../../../core/utils/either.dart';
 import '../errors/wallpapers_error.dart';
 
-abstract class IGetWallpapersUsecase {
+abstract interface class IGetWallpapersUsecase {
   Future<Either<WallpaperError, List<WallpaperEntity>>> call();
 }
 

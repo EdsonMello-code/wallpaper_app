@@ -3,7 +3,7 @@ import 'package:test_two/app/modules/home/domain/wallpaper_entity.dart';
 
 import '../../../../core/utils/either.dart';
 
-abstract class WallpaperRepository {
+abstract interface class WallpaperRepository {
   Future<Either<WallpaperError, List<WallpaperEntity>>> getWallpappers();
 
   Future<Either<WallpaperError, List<WallpaperEntity>>> getWallpappersBySubject(

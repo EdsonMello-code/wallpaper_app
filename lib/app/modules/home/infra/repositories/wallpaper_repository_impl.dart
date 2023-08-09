@@ -79,8 +79,8 @@ class WallpaperRepositoryImpl implements WallpaperRepository {
       final storagePermissionStatus = await _permission.getStoragePermission();
 
       if (storagePermissionStatus == false) {
-        return Left(
-          const WallpaperInternetError(
+        return const Left(
+          WallpaperInternetError(
             'Preciso da sua permissão para salvar as images',
           ),
         );

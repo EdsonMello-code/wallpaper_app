@@ -3,7 +3,7 @@ import '../errors/wallpapers_error.dart';
 import '../repositories/wallpaper_repository.dart';
 import '../wallpaper_entity.dart';
 
-abstract class IGetWallpapersBySubjectUsecase {
+abstract interface class IGetWallpapersBySubjectUsecase {
   Future<Either<WallpaperError, List<WallpaperEntity>>> call(String subject);
 }
 
