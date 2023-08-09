@@ -15,7 +15,6 @@ class WallpaperBloc extends Bloc<WallpaperEvent, WallpapersState> {
   ) : super(WallpaperStartState()) {
     on<GetWallpaperEvent>(loadWallpapers);
     on<GetWallpaperBySubjectEvent>(loadWallpapersBySubject);
-    // on<DownloadWallpperEvent>(downloadWallpaper);
   }
 
   Future<void> loadWallpapers(
