@@ -1,4 +1,3 @@
-import 'package:fpdart/fpdart.dart';
 import 'package:test_two/app/core/app_failure/app_failure.dart';
 import 'package:test_two/app/core/services/permission/permission_service.dart';
 import 'package:test_two/app/modules/home/domain/errors/wallpapers_error.dart';
@@ -6,6 +5,7 @@ import 'package:test_two/app/modules/home/domain/wallpaper_entity.dart';
 import 'package:test_two/app/modules/home/infra/datasources/wallpaper_datasource.dart';
 import 'package:test_two/app/modules/home/infra/datasources/wallpaper_offline_datasource.dart';
 
+import '../../../../core/utils/either.dart';
 import '../../domain/repositories/wallpaper_repository.dart';
 import '../../externals/mappers/wallpaper_mapper.dart';
 
@@ -79,8 +79,8 @@ class WallpaperRepositoryImpl implements WallpaperRepository {
       final storagePermissionStatus = await _permission.getStoragePermission();
 
       if (storagePermissionStatus == false) {
-        return const Left(
-          WallpaperInternetError(
+        return Left(
+          const WallpaperInternetError(
             'Preciso da sua permissão para salvar as images',
           ),
         );

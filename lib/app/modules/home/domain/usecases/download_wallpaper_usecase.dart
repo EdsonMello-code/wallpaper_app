@@ -1,5 +1,4 @@
-import 'package:fpdart/fpdart.dart';
-
+import '../../../../core/utils/either.dart';
 import '../errors/wallpapers_error.dart';
 import '../repositories/wallpaper_repository.dart';
 

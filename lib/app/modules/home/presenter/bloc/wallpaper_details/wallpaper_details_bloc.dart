@@ -27,11 +27,11 @@ class WallpaperDetailsBloc
       downloadWallpperEvent.url,
     );
 
-    isSavedWallpaper.fold((leftWallpaper) {
+    isSavedWallpaper.fold(left: (leftWallpaper) {
       emit(WallpaperDetailsFailureState());
 
       log(leftWallpaper.message);
-    }, (rightWallpaper) {
+    }, right: (rightWallpaper) {
       emit(WallpaperDetailsSuccessState());
       log(rightWallpaper.toString());
     });

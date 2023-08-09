@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:test_two/app/core/utils/either.dart';
 import 'package:test_two/app/modules/home/domain/errors/wallpapers_error.dart';
 import 'package:test_two/app/modules/home/domain/repositories/wallpaper_repository.dart';
 import 'package:test_two/app/modules/home/domain/usecases/get_wallpapers_by_subject_usecase.dart';
@@ -35,9 +35,9 @@ void main() {
         final wallpapersResponse =
             await wallpaperRepository.getWallpappersBySubject('Nature');
 
-        wallpapersResponse.fold((wallpaperLeft) {
+        wallpapersResponse.fold(left: (wallpaperLeft) {
           expect(wallpaperLeft, isNull);
-        }, (wallpaperRight) {
+        }, right: (wallpaperRight) {
           expect(wallpaperRight, isA<List<WallpaperEntity>>());
           expect(
             wallpaperRight.isNotEmpty,
@@ -56,8 +56,8 @@ void main() {
           ),
         ).thenAnswer(
           (_) => Future.value(
-            Either.left(
-              const WallpaperInternetError(
+            const Left(
+              WallpaperInternetError(
                 'Error ao procura wallpapers com esse assunto',
               ),
             ),
@@ -66,14 +66,14 @@ void main() {
 
         final wallpapersResponse = await getWallpapersBySubjectUsecase('');
 
-        wallpapersResponse.fold((wallpaperLeft) {
+        wallpapersResponse.fold(left: (wallpaperLeft) {
           expect(wallpaperLeft, isNotNull);
           expect(wallpaperLeft, isException);
           expect(
             wallpaperLeft,
             isA<WallpaperInternetError>(),
           );
-        }, (wallpaperRight) {
+        }, right: (wallpaperRight) {
           expect(wallpaperRight, isNull);
         });
       },

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:test_two/app/core/utils/either.dart';
 import 'package:test_two/app/modules/home/domain/errors/wallpapers_error.dart';
 import 'package:test_two/app/modules/home/domain/repositories/wallpaper_repository.dart';
 import 'package:test_two/app/modules/home/domain/usecases/download_wallpaper_usecase.dart';
@@ -26,9 +26,7 @@ void main() {
         ),
       ).thenAnswer(
         (invocation) => Future.value(
-          Either.right(
-            true,
-          ),
+          const Right(true),
         ),
       );
 
@@ -36,9 +34,9 @@ void main() {
         "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
       );
 
-      downloadedImageResponse.fold((wallaperLeft) {
+      downloadedImageResponse.fold(left: (wallaperLeft) {
         expect(wallaperLeft, isNull);
-      }, (wallaperRight) {
+      }, right: (wallaperRight) {
         expect(wallaperRight, isNotNull);
         expect(wallaperRight, isA<bool>());
         expect(wallaperRight, isTrue);
@@ -55,9 +53,7 @@ void main() {
         ),
       ).thenAnswer(
         (invocation) => Future.value(
-          Either.right(
-            false,
-          ),
+          const Right(false),
         ),
       );
 
@@ -65,9 +61,9 @@ void main() {
         "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
       );
 
-      downloadedImageResponse.fold((wallaperLeft) {
+      downloadedImageResponse.fold(left: (wallaperLeft) {
         expect(wallaperLeft, isNull);
-      }, (wallaperRight) {
+      }, right: (wallaperRight) {
         expect(wallaperRight, isNotNull);
         expect(wallaperRight, isA<bool>());
         expect(wallaperRight, isFalse);
@@ -84,8 +80,8 @@ void main() {
         ),
       ).thenAnswer(
         (invocation) => Future.value(
-          Either.left(
-            const WallpaperInternetError('Download not download'),
+          const Left(
+            WallpaperInternetError('Download not download'),
           ),
         ),
       );
@@ -94,10 +90,10 @@ void main() {
         "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
       );
 
-      downloadedImageResponse.fold((wallaperLeft) {
+      downloadedImageResponse.fold(left: (wallaperLeft) {
         expect(wallaperLeft, isNotNull);
         expect(wallaperLeft, isA<WallpaperInternetError>());
-      }, (wallaperRight) {
+      }, right: (wallaperRight) {
         expect(wallaperRight, isNull);
       });
     },

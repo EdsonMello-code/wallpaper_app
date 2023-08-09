@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:test_two/app/core/utils/either.dart';
 import 'package:test_two/app/modules/home/domain/repositories/wallpaper_repository.dart';
 import 'package:test_two/app/modules/home/domain/usecases/get_wallpapers_usecase.dart';
 import 'package:test_two/app/modules/home/domain/wallpaper_entity.dart';
@@ -24,19 +24,17 @@ void main() {
             () => wallpaperRepository.getWallpappers(),
           ).thenAnswer(
             (_) => Future.value(
-              Either.right(
-                wallpapersListWithDataFormated,
-              ),
+              Right(wallpapersListWithDataFormated),
             ),
           );
 
           final responseWallpapers = await getWallpapersUsecase();
 
           responseWallpapers.fold(
-            (leftWallpapers) {
+            left: (leftWallpapers) {
               expect(leftWallpapers, isNull);
             },
-            (rigthWallpapers) {
+            right: (rigthWallpapers) {
               expect(rigthWallpapers, isNotEmpty);
               expect(rigthWallpapers, isA<List<WallpaperEntity>>());
             },
@@ -51,19 +49,17 @@ void main() {
             () => wallpaperRepository.getWallpappers(),
           ).thenAnswer(
             (_) => Future.value(
-              Either.right(
-                wallpapersListWithDataFormated,
-              ),
+              Right(wallpapersListWithDataFormated),
             ),
           );
 
           final responseWallpapers = await getWallpapersUsecase();
 
           responseWallpapers.fold(
-            (leftWallpapers) {
+            left: (leftWallpapers) {
               expect(leftWallpapers, isNull);
             },
-            (rigthWallpapers) {
+            right: (rigthWallpapers) {
               expect(
                 rigthWallpapers[0].imageMedium.contains('h=350'),
                 equals(true),
@@ -80,19 +76,17 @@ void main() {
             () => wallpaperRepository.getWallpappers(),
           ).thenAnswer(
             (_) => Future.value(
-              Either.right(
-                wallpapersListWithDataNotFormated,
-              ),
+              Right(wallpapersListWithDataNotFormated),
             ),
           );
 
           final responseWallpapers = await getWallpapersUsecase();
 
           responseWallpapers.fold(
-            (leftWallpapers) {
+            left: (leftWallpapers) {
               expect(leftWallpapers, isNull);
             },
-            (rigthWallpapers) {
+            right: (rigthWallpapers) {
               expect(
                 !rigthWallpapers[0].imageMedium.contains('h=350'),
                 equals(true),

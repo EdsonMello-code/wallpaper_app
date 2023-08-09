@@ -26,13 +26,13 @@ class WallpaperBloc extends Bloc<WallpaperEvent, WallpapersState> {
 
     final responseWallpapers = await _getWallpapersUsecase();
 
-    responseWallpapers.fold((leftWallpaper) {
+    responseWallpapers.fold(left: (leftWallpaper) {
       emit(
         WallpapperFailureState(
           message: leftWallpaper.message,
         ),
       );
-    }, (rightWallpaper) {
+    }, right: (rightWallpaper) {
       emit(
         WallpaperSuccessState(
           wallpapers: rightWallpaper,
@@ -50,13 +50,13 @@ class WallpaperBloc extends Bloc<WallpaperEvent, WallpapersState> {
     final responseWallpapers =
         await _getWallpapersBySujectUsecase(getWallpaperBySubjectEvent.subject);
 
-    responseWallpapers.fold((leftWallpaper) {
+    responseWallpapers.fold(left: (leftWallpaper) {
       emit(
         WallpapperFailureState(
           message: leftWallpaper.message,
         ),
       );
-    }, (rightWallpaper) {
+    }, right: (rightWallpaper) {
       emit(
         WallpaperSuccessState(
           wallpapers: rightWallpaper,
