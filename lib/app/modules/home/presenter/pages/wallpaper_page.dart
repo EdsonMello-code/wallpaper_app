@@ -12,9 +12,9 @@ class WallpaperPage extends StatefulWidget {
   final WallpaperBloc wallpaperbloc;
 
   const WallpaperPage({
-    Key? key,
+    super.key,
     required this.wallpaperbloc,
-  }) : super(key: key);
+  });
 
   @override
   State<WallpaperPage> createState() => _WallpaperPageState();

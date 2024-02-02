@@ -13,10 +13,10 @@ class WallpaperDetailsPage extends StatefulWidget {
   final WallpaperDetailsBloc wallpaperDetailsbloc;
 
   const WallpaperDetailsPage({
-    Key? key,
+    super.key,
     required this.url,
     required this.wallpaperDetailsbloc,
-  }) : super(key: key);
+  });
 
   @override
   State<WallpaperDetailsPage> createState() => _WallpaperDetailsPageState();
